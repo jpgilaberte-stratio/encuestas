@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+  <title>ENCUESTAS ONLINE</title>
+  	<meta charset="utf-8" />
+ 	<meta name="viewport" content="width=device-width, initial-scale=1"> 
+	<!--<link rel="stylesheet" href="js/lib/jquery.mobile-1.2.0.min.css" />---->
+     <link rel="stylesheet" href="js/lib/jquery.mobile.structure-1.2.0.min.css" /> 
+    <link rel="stylesheet" href="res/themes/estilos.min.css">
+	<script src="js/lib/jquery.js"></script>
+	<script src="js/lib/jquery.mobile-1.2.0.min.js"></script>
+	<script src="js/encuesta.js"></script>
+	<script src="js/lib/translate2.js"></script>
+	<script src="js/lib/estilos.js"></script>
+	<script src="js/lib/jquery.flot.js"></script>
+	<script src="js/lib/jquery.cookie.js"></script>
+	
+	<script >  var manager = new Encuesta (); 
+			   
+	</script>
+	
+</head>
+<body>
+
+
+<!-- Menú principal -->
+ <div data-role="page" id="pageMenu">
+    <div id="header" data-theme="c" data-role="header" data-position="fixed">
+        <h3>
+            ENCUESTAS ONLINE
+        </h3>
+    </div>
+    <div data-role="content">
+        <ul id="listMenu" data-role="listview" data-divider-theme="b" data-inset="true">
+            <li data-role="list-divider" data-role="heading">
+                <label id="Menu_Principal"></label>
+            </li>
+            <li data-theme="c">
+                <a onClick="manager.getTipos();" data-transition="slide">
+                    <label id="Encuestas"></label>
+                    <span class="ui-li-count">
+                        
+                    </span>
+                </a>
+            </li>
+        </ul>
+
+    </div>
+    <div data-theme="a" data-role="footer" data-position="fixed">
+        <h3 id="footer">
+             <br> Idioma
+            <img src="res/inglaterra.png" title="Idioma Ingles" width="80" height="40" alt="ingla" onClick="manager.translate2('uk');">
+            <img src="res/bandera_espanola.gif" title="Idioma Español" width="80" height="40" alt="esp"onClick="manager.translate2('es');">
+            <img src="res/italia.jpg" title ="Idioma Italiano" width="80" height="40" alt="ital" onClick="manager.translate2('it');">
+            <img src="res/francia.png" title ="Idioma Frances" width="80" height="40" alt="franc"onClick="manager.translate2('fr');">
+           <br> Estilo
+           <img src="res/coco1.jpg" title ="estilo azul" width="80" height="40" alt="ingla" onClick="manager.cambioStyle ('-a ', 'a');">
+            <img src="res/gustavo.jpg" title="estilo verde" width="80" height="40" alt="esp"onClick="manager.cambioStyle ('-c ', 'c');">
+            <img src="res/rojo.jpg" title ="estilo rojo" width="80" height="40" alt="ital" onClick="manager.cambioStyle  ('-b ', 'b');">
+            
+        </h3>
+    </div>
+</div>               	
+
+
+<!--  SubMenu realizar encuestas -->
+<div data-role="page" id="pageConfigurarEncuesta">
+    <div id="header" data-theme="a" data-role="header" data-position="fixed">
+        <h3>
+            ENCUESTAS ONLINE
+        </h3>
+    </div>
+    <div data-role="content">       
+	<form id="formSolicitar">
+        <div data-role="fieldcontain">  
+            <select id="tipoEncuesta" name="tipoEncuesta" data-theme="c" data-mini="true" onChange="manager.getSubTipos();">
+                	
+                		 <option id="tipoEncuestaLabel" value="0"></option> 
+            </select>
+        </div>
+        <div data-role="fieldcontain">
+            <select id="subTipoEncuesta" name="subTipoEncuesta" data-theme="c" data-mini="true">
+	                
+	                	 <option id="subTipoEncuestaLabel" value="0">Subtipo encuesta</option> 
+            </select>
+        </div>
+        <!-- <div data-role="fieldcontain">
+            <fieldset data-role="controlgroup" data-mini="true">
+                <label for="nivelEncuesta">
+                    Nivel
+                </label>
+                <input id="nivelEncuesta" type="range" data-theme="c" name="nivelEncuesta" value="1" min="1" max="3" data-highlight="true">
+            </fieldset>
+        </div>
+         <div data-role="fieldcontain">
+            <fieldset data-role="controlgroup">
+                <label for="levelDefault">
+                    Nivel por defecto
+                </label>
+                <select name="nivelEncuestaDefault" id="levelDefault" data-theme="c" data-role="slider" data-mini="true">
+                    <option value="off">
+                        No
+                    </option>
+                     <option value="on">
+                        Sí
+                    </option>
+                </select>
+                <label for="levelDefault">
+                    Encuesta aleatoria
+                </label>
+                <select name="nivelEncuestaDefault" id="levelDefault" data-theme="c" data-role="slider" data-mini="true">
+                    <option value="off">
+                        No
+                    </option>
+                     <option value="on">
+                        Sí
+                    </option>
+                </select>
+            </fieldset>
+        </div> -->
+        <a  data-role="button" onClick="manager.solicitarEncuesta();" data-theme="c" data-icon="arrow-r" data-iconpos="right"  data-mini="true"><label id ="solicitar"></label></a>
+        <a  data-role="button" onClick="manager.solicitarGrafico();" data-theme="c" data-icon="arrow-r" data-iconpos="right"  data-mini="true"><label id="grafos"></label></a>
+	
+
+	</form>
+    
+   
+   	</div>
+    
+    <div data-theme="a" data-role="footer" data-position="fixed">
+        <h3 id="footer">
+            
+        </h3>
+    </div>
+    </div>
+    <div data-role="page" id="pageGrafico">
+    <div id="header" data-theme="c" data-role="header" data-position="fixed">
+        <h3>
+            ON-ENCUESTAS.COM
+        </h3>
+    </div>
+    <div data-role="content">
+    	<!-- Construccion dinámica de los graficos -->
+    	<div id="graficos"></div>
+    	
+    <div data-theme="a" data-role="footer" data-position="fixed">
+    </div>   
+    </div>
+</div> 
+       
+   <script> var r = new Translate2("es");
+    			r.translate2local();
+    </script>
+</body>
+</html>
