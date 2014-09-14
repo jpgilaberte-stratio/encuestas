@@ -14,15 +14,14 @@ import com.aft.encuestas.model.Encuesta;
 import com.aft.encuestas.model.Pregunta;
 import com.aft.encuestas.model.Respuesta;
 import com.mysql.jdbc.jdbc2.optional.MysqlDataSource;
+import org.apache.log4j.Logger;
 
 public class EncuestasDaoImpl {
-
-	
 
 		/**
 		 * DataSource
 		 */
-			MysqlDataSource ds = null;
+			private MysqlDataSource ds = null;
 		    
 		/**
 		 * Constantes conexi�n	
@@ -271,9 +270,7 @@ public class EncuestasDaoImpl {
 						    try{
 						    	DbUtils.close(ds.getConnection());
 			
-						    }catch (Exception e) {
-								System.out.println( DISCONNECT_CATCH );
-						}
+						    }finally{}
 						}
 					return result;
 				}
@@ -471,4 +468,12 @@ public class EncuestasDaoImpl {
 					}
 				return result;
 			}
+
+    public MysqlDataSource getDs() {
+        return ds;
+    }
+
+    public void setDs(MysqlDataSource ds) {
+        this.ds = ds;
+    }
 }

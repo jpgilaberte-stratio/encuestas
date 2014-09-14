@@ -10,12 +10,11 @@ import com.aft.encuestas.model.Encuesta;
 
 public class ManagerBiEncuestas extends MyManagerBiDefault{
 
+    EncuestasDaoImpl daoImpl = new EncuestasDaoImpl();
+
 	@SuppressWarnings("unchecked")
 	public Encuesta find(Encuesta encuesta) throws Exception{
-		
-		
-			EncuestasDaoImpl daoImpl = new EncuestasDaoImpl();
-				
+
 				//01.Recuperamos atributos encuesta
 					daoImpl.connect();	
 					encuesta = (Encuesta)daoImpl.findEncuesta(encuesta.getId_Encuesta(), encuesta.getId_Tbl_Idioma()).get(0);
@@ -38,7 +37,6 @@ public class ManagerBiEncuestas extends MyManagerBiDefault{
 	public List<Encuesta> findEncuestas (String idioma) throws Exception{
 		
 			List<Encuesta> listEncuestas = null;
-			EncuestasDaoImpl daoImpl = new EncuestasDaoImpl();
 			
 				daoImpl.connect();
 				listEncuestas = daoImpl.findTipoEncuesta(idioma);
@@ -50,7 +48,6 @@ public class ManagerBiEncuestas extends MyManagerBiDefault{
 	public List<Encuesta> findSubTiposEncuestas (String tipoEnc, String idioma)throws Exception{
 		
 		List<Encuesta> listEncuestas = null;
-		EncuestasDaoImpl daoImpl = new EncuestasDaoImpl();
 			daoImpl.connect();
 			listEncuestas = daoImpl.findSubTipoEncuesta(tipoEnc, idioma);
 		
@@ -61,8 +58,7 @@ public class ManagerBiEncuestas extends MyManagerBiDefault{
 	public boolean add(Map collection)throws Exception{
 		
 			Boolean result = true;
-						
-				EncuestasDaoImpl daoImpl = new EncuestasDaoImpl();
+
 				daoImpl.add(collection);
 			
 			
@@ -73,7 +69,7 @@ public class ManagerBiEncuestas extends MyManagerBiDefault{
 	public boolean addAdmin(Map collection)throws Exception{
 		
 			Boolean result = true;
-			EncuestasDaoImpl daoImpl = new EncuestasDaoImpl();
+
 			String subTipo = ((String[])collection.get("subTipoEncuestaNew"))[0];
 			String idioma  = ((String[])collection.get("idioma"))[0];
 			String fechaCad  = ((String[])collection.get("fechaCad"))[0];
@@ -104,7 +100,6 @@ public class ManagerBiEncuestas extends MyManagerBiDefault{
 	public boolean mod(Map collection)throws Exception{
 		
 			Boolean result = true;
-			EncuestasDaoImpl daoImpl = new EncuestasDaoImpl();
 				
 			Iterator ite = collection.entrySet().iterator();
 			while (ite.hasNext()){
@@ -133,12 +128,18 @@ public class ManagerBiEncuestas extends MyManagerBiDefault{
 	public boolean del(String id)throws Exception{
 		
 			Boolean result = true;
-						
-				EncuestasDaoImpl daoImpl = new EncuestasDaoImpl();
+
 				if (daoImpl.delete(id) == 0)
 						result = false ;
 			
 		return result;
 	}
-	
+
+    public EncuestasDaoImpl getDaoImpl() {
+        return daoImpl;
+    }
+
+    public void setDaoImpl(EncuestasDaoImpl daoImpl) {
+        this.daoImpl = daoImpl;
+    }
 }

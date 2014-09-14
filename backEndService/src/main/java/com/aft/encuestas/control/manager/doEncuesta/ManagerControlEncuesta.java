@@ -11,16 +11,17 @@ import com.aft.encuestas.control.core.MyManagerControlDefault;
 import com.aft.encuestas.model.Encuesta;
 
 import flexjson.JSONSerializer;
+import org.apache.log4j.Logger;
 
 
 public class ManagerControlEncuesta extends MyManagerControlDefault {
 
 	private static final long serialVersionUID = -5217196976191298988L;
-	
+	private static final Logger log = Logger.getLogger(ManagerControlEncuesta.class);
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
-		
+
 		//...Declaraci�n manager, bean y recuperaci�n parametro action
 			ManagerBiEncuestas manager = new ManagerBiEncuestas();
 			String action = req.getParameter("action");	
@@ -44,6 +45,7 @@ public class ManagerControlEncuesta extends MyManagerControlDefault {
 					res = encuesta.parseToJson();
 				}catch (Exception e) {
 					res = "{\"error\":\"error: "+e.getMessage()+"\"}";
+                    defaultLog(e);
 				}	
 					System.out.println(" find ");
 				
@@ -55,6 +57,7 @@ public class ManagerControlEncuesta extends MyManagerControlDefault {
 									res = "{\"error\":\"ok\"}"; // resultado ok
 				}catch (Exception e) {
 					res = "{\"error\":\"error: "+e.getMessage()+"\"}";
+                    defaultLog(e);
 				}	
 						System.out.println(" add ");
 				
@@ -66,6 +69,7 @@ public class ManagerControlEncuesta extends MyManagerControlDefault {
 					res = new JSONSerializer().deepSerialize(list);
 				}catch (Exception e) {
 					res = "{\"error\":\"error: "+e.getMessage()+"\"}";
+                    defaultLog(e);
 				}
 				
 			}else if ("getSubTipos".equals(action)){
@@ -77,6 +81,7 @@ public class ManagerControlEncuesta extends MyManagerControlDefault {
 					list.add(encuesta);
 				}catch (Exception e) {
 					res = "{\"error\":\"error: "+e.getMessage()+"\"}";
+                    defaultLog(e);
 				}
 					
 			}else if ("addServer".equals(action)){
@@ -85,6 +90,7 @@ public class ManagerControlEncuesta extends MyManagerControlDefault {
 							res = "{\"error\":\"ok\"}"; // resultado ok
 				}catch (Exception e) {
 					res = "{\"error\":\"error: "+e.getMessage()+"\"}";
+                    defaultLog(e);
 				}
 				System.out.println(" modificar ");	
 					
@@ -95,6 +101,7 @@ public class ManagerControlEncuesta extends MyManagerControlDefault {
 				
 				}catch (Exception e) {
 					res = "{\"error\":\"error: "+e.getMessage()+"\"}";
+                    defaultLog(e);
 				}
 				System.out.println(" modificar ");	
 					
@@ -104,6 +111,7 @@ public class ManagerControlEncuesta extends MyManagerControlDefault {
 							res = "{\"error\":\"ok\"}"; // resultado ok
 				}catch (Exception e) {
 					res = "{\"error\":\"error: "+e.getMessage()+"\"}";
+                    defaultLog(e);
 				}
 				
 				System.out.println(" eliminar ");	
@@ -123,6 +131,7 @@ public class ManagerControlEncuesta extends MyManagerControlDefault {
 					res = encuesta.parseToJson();
 				}catch (Exception e) {
 					res = "{\"error\":\"error: "+e.getMessage()+"\"}";
+                    defaultLog(e);
 				}
 				System.out.println(" graphics ");	
 					
@@ -135,5 +144,9 @@ public class ManagerControlEncuesta extends MyManagerControlDefault {
 			
 		resp.setHeader("content-type", "aplication-json");
 		resp.getOutputStream().println(res);
-	}	
+	}
+
+    private void defaultLog (Exception e){
+        log.info("Exception ---------- ", e);
+    }
 }

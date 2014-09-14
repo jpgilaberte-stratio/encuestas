@@ -23,7 +23,7 @@
     </dependencies>
     <build>
 
-        <plugins>
+        <!--<plugins>
         <plugin>
             <groupId>com.github.chrisprice</groupId>
             <artifactId>phonegap-build-maven-plugin</artifactId>
@@ -32,8 +32,8 @@
                 <execution>
 
                     <id>phonegap-build</id>
-                    <!-- the goals are lifecycle bound by default -->
-                    <goals>
+
+                                  <goals>
                         <goal>clean</goal>
                         <goal>build</goal>
                     </goals>
@@ -47,7 +47,7 @@
                 </execution>
             </executions>
         </plugin>
-        </plugins>
+        </plugins>-->
 
     </build>
 </project>
